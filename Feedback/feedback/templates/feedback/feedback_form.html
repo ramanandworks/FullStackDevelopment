@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+    <h1>Feedback Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <fieldset>
+            <legend>Questionnaire</legend>
+            <div>
+                <label for="id_question1">Was the course content helpful?</label><br>
+                <input type="radio" id="id_question1_0" name="question1" value="yes"> Yes<br>
+                <input type="radio" id="id_question1_1" name="question1" value="no"> No<br>
+            </div>
+            <div>
+                <label for="id_question2">How would you rate the instructor's teaching?</label><br>
+                <input type="radio" id="id_question2_0" name="question2" value="excellent"> Excellent<br>
+                <input type="radio" id="id_question2_1" name="question2" value="good"> Good<br>
+                <input type="radio" id="id_question2_2" name="question2" value="average"> Average<br>
+                <input type="radio" id="id_question2_3" name="question2" value="poor"> Poor<br>
+            </div>
+            <div>
+                <label for="id_question3">Would you recommend this course to others?</label><br>
+                <input type="radio" id="id_question3_0" name="question3" value="yes"> Yes<br>
+                <input type="radio" id="id_question3_1" name="question3" value="no"> No<br>
+            </div>
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if form.errors %}
+        <div style="color: red;">
+            <h2>Form errors:</h2>
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <li>{{ form.non_field_errors|striptags }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>
